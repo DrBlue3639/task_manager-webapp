@@ -1,0 +1,15 @@
+- mysql2: a node.js package that lets the application communicate with MySQL server.
+
+pip install mysql2
+
+npm install bcrypt
+
+npm install jasonwebtoken
+
+
+async and await ko concept clear xaina so bujhna paryo
+
+recent block ko explaination herne, login ko
+
+middleware => vaneko just frontend(react) bata aako request(GET /tasks) lai route ma jana vanda aagadi
+middle ma user ko jwt valid xa ki nai check garxa.
