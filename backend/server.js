@@ -197,6 +197,27 @@ app.post("/login", (req, res) => {
   });
 });
 
+app.get("/user", (req, res) => {
+  const sql = "select count(*) from users";
+
+  db.query(sql, (err, result) => {
+    // var output = result;
+    if (err) {
+      return res.status(500).json({
+        message: "Database error",
+      });
+    }
+    if (result.affectedRows === 0) {
+      return res.status(404).json({
+        message: "no users found",
+      });
+    }
+    res.json({
+      Users: result,
+    });
+  });
+});
+
 // app.delete("/register/:id", (req, res) => {
 //   const id = req.params.id;
 //   const sql = "delete from users where id = ?";
