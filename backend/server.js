@@ -62,7 +62,7 @@ app.post("/tasks", auth, (req, res) => {
 });
 
 //updates the existing data
-app.put("/tasks/:id",auth, (req, res) => {
+app.put("/tasks/:id", auth, (req, res) => {
   const id = req.params.id;
   const title = req.body.title;
   const completed = req.body.completed;
@@ -89,10 +89,12 @@ app.put("/tasks/:id",auth, (req, res) => {
 });
 
 //deletes an existing data
-app.delete("/tasks/:id", (req, res) => {
+app.delete("/tasks/:id", auth, (req, res) => {
   const id = req.params.id;
-  const sql = "delete from tasks where id = ?";
-  db.query(sql, [id], (err, result) => {
+  const userId = req.user.id;
+
+  const sql = "delete from tasks where id = ? and user_id = ?";
+  db.query(sql, [id, userId], (err, result) => {
     if (err) {
       return res.status(500).json({
         message: "database error",
@@ -100,7 +102,7 @@ app.delete("/tasks/:id", (req, res) => {
     }
     if (result.affectedRows === 0) {
       return res.json({
-        message: "data not found",
+        message: "data not found or it doesnt belong to you",
       });
     }
     res.json({
