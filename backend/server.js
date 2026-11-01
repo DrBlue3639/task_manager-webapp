@@ -197,8 +197,8 @@ app.post("/login", (req, res) => {
   });
 });
 
-app.get("/user", (req, res) => {
-  const sql = "select count(*) from users";
+app.get("/users", (req, res) => {
+  const sql = "select * from users group by name";
 
   db.query(sql, (err, result) => {
     // var output = result;
@@ -218,26 +218,28 @@ app.get("/user", (req, res) => {
   });
 });
 
-// app.delete("/register/:id", (req, res) => {
-//   const id = req.params.id;
-//   const sql = "delete from users where id = ?";
+app.delete("/deluser/", auth, (req, res) => {
+  const id = req.user.id;
+  const checking = req.user;
+  console.log(checking);
+  const sql = "delete from users where id = ?";
 
-//   db.query(sql, [id], (err, result) => {
-//     if (err) {
-//       return res.status(500).json({
-//         message: "database error",
-//       });
-//     }
-//     if (result.affectedRows === 0) {
-//       return res.status(404).json({
-//         message: "user not found or already deleted.",
-//       });
-//     }
-//     res.json({
-//       message: "user deleted sucessfully!",
-//     });
-//   });
-// });
+  db.query(sql, [id], (err, result) => {
+    if (err) {
+      return res.status(500).json({
+        message: "database error",
+      });
+    }
+    if (result.affectedRows === 0) {
+      return res.status(404).json({
+        message: "user not found or already deleted.",
+      });
+    }
+    res.json({
+      message: "user deleted sucessfully!",
+    });
+  });
+});
 
 //the port where the server is running (:5000) (localhost:5000)
 app.listen(5000, () => {
