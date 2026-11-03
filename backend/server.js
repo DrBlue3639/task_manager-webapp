@@ -4,6 +4,7 @@ const db = require("./config/db");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const auth = require("./middleware/auth");
+const admin = require("./middleware/admin");
 
 const app = express();
 
@@ -197,8 +198,8 @@ app.post("/login", (req, res) => {
   });
 });
 
-app.get("/users", (req, res) => {
-  const sql = "select * from users group by name";
+app.get("/users", auth, admin, (req, res) => {
+  const sql = "select id, name, email, role from users";
 
   db.query(sql, (err, result) => {
     // var output = result;
@@ -212,9 +213,7 @@ app.get("/users", (req, res) => {
         message: "no users found",
       });
     }
-    res.json({
-      Users: result,
-    });
+    res.json(result);
   });
 });
 
