@@ -33,7 +33,6 @@ app.get("/tasks", auth, (req, res) => {
         message: "Database error",
       });
     }
-    res.json(result);
   });
 });
 
@@ -239,6 +238,29 @@ app.delete("/deluser/", auth, (req, res) => {
     });
   });
 });
+
+//view your profile
+app.get("/profile", auth, (req, res) => {
+  const userid = req.user.id;
+
+  const sql = "select id, name, email, role from users where id = ?";
+
+  db.query(sql, [userid], (err, result) => {
+    if (err) {
+      return res.status(500).json({
+        message: "database error",
+      });
+    }
+    if (result.length === 0) {
+      return res.status(404).json({
+        message: "user not found",
+      });
+    }
+    res.json(result[0]);
+  });
+});
+
+//
 
 //the port where the server is running (:5000) (localhost:5000)
 app.listen(5000, () => {

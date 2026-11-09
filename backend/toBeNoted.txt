@@ -13,3 +13,15 @@ recent block ko explaination herne, login ko
 
 middleware => vaneko just frontend(react) bata aako request(GET /tasks) lai route ma jana vanda aagadi
 middle ma user ko jwt valid xa ki nai check garxa.
+result = {
+    [
+        user: "name",
+        password: "pass123"
+    ],
+    [
+        affectedRows: 2
+    ]
+}
+resutl[1]
+
+
