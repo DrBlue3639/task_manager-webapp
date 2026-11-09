@@ -260,7 +260,30 @@ app.get("/profile", auth, (req, res) => {
   });
 });
 
-//
+//update your profile
+app.put("/profile", auth, (req, res) => {
+  const userid = req.user.id;
+  const email = req.body.email;
+  const name = req.body.name;
+
+  const sql = "update users set name = ?, email = ? where id = ?";
+
+  db.query(sql, [name, email, userid], (err, result) => {
+    if (err) {
+      return res.status(500).json({
+        message: "databse error",
+      });
+    }
+    if (result.affectedRows === 0) {
+      return res.status(404).json({
+        message: "data not found",
+      });
+    }
+    res.json({
+      message: "profile updated sucessfully!",
+    });
+  });
+});
 
 //the port where the server is running (:5000) (localhost:5000)
 app.listen(5000, () => {
