@@ -1,4 +1,5 @@
 //required imports
+require("dotenv").config();
 const express = require("express");
 const db = require("./config/db");
 const bcrypt = require("bcrypt");
@@ -185,7 +186,7 @@ app.post("/login", (req, res) => {
         id: user.id,
         role: user.role,
       },
-      "my_secret_key",
+      process.env.JWT_SECRET,
       {
         expiresIn: "1h",
       },
