@@ -11,12 +11,6 @@ const app = express();
 
 app.use(express.json());
 
-// let tasks = [
-//   { id: 1, title: "Learning node.js" },
-//   { id: 2, title: "Learn React" },
-//   { id: 3, title: "currently at 8" },
-// ];
-
 //just a resposne form the backend
 app.get("/", (req, res) => {
   res.send("Hello form the backend!!!");
@@ -34,6 +28,9 @@ app.get("/tasks", auth, (req, res) => {
         message: "Database error",
       });
     }
+    res.json({
+      result,
+    });
   });
 });
 
