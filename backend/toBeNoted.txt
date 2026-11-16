@@ -17,5 +17,22 @@ recent block ko explaination herne, login ko
 middleware => vaneko just frontend(react) bata aako request(GET /tasks) lai route ma jana vanda aagadi
 middle ma user ko jwt valid xa ki nai check garxa.
 
+npm create vite@latest frontnd -- --template react
+- for react frontend with a template of a frontend 
+ESLint and Oxlint -- both are tools that check the javascript code for problems and helps in maintaining clean and consistent code.
+ESLing chai purano(old) tool ho, common mistakes unused variables and coding style issues lai vetxa
+Oxlint chai naya(new) tool ho rust ma lekheko. designed to be very fast aani ESLint jastai features xa 
 
+
+on the frontend folder--
+npm install
+- this tells npm to read the project's package.json and install all the dependencies 
+
+
+react applications haru chai components haru le baneko hunxa
+so tyo components haru chai reusable UI haru hun
+so this application might have login component register componetnt navbar component etccc.
+
+
+jsx -- html jastai markup lekhna dinxa javascript vittra. react uses this markup to describe what should appear on the screen
 
