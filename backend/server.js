@@ -59,6 +59,25 @@ app.post("/tasks", auth, (req, res) => {
   });
 });
 
+//this get request shows all tasks of all the users
+app.get("/alltasks", auth, admin, (req, res) => {
+  const sql =
+    "select tasks.id, tasks.title, tasks.completed, users.name, users.role from users join tasks on users.id = tasks.user_id";
+  db.query(sql, (err, result) => {
+    if (err) {
+      return res.status(500).json({
+        message: "database error",
+      });
+    }
+    if (!result) {
+      return res.status(404).json({
+        message: "no data found",
+      });
+    }
+    res.json(result);
+  });
+});
+
 //updates the existing data
 app.put("/tasks/:id", auth, (req, res) => {
   const id = req.params.id;
@@ -279,6 +298,27 @@ app.put("/profile", auth, (req, res) => {
     }
     res.json({
       message: "profile updated sucessfully!",
+    });
+  });
+});
+
+app.put("/changetoadmin", auth, admin, (req, res) => {
+  const user_id = req.body.id;
+
+  const sql = "update users set role = 'admin' where id = ?";
+  db.query(sql, [user_id], (err, result) => {
+    if (err) {
+      return res.status(500).json({
+        message: "database error",
+      });
+    }
+    if (result.affectedRows === 0) {
+      return res.status(404).json({
+        message: "data not found",
+      });
+    }
+    res.json({
+      message: "data updated sucessfully!",
     });
   });
 });
